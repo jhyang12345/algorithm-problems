@@ -40,6 +40,8 @@ def feed_inputs_to_file(problem, inputs):
 
             stdoutdata, stderrdata = process.communicate(input = input_data)
             print(stdoutdata)
+            print(stderrdata)
+            process.terminate()
 
 if __name__ == '__main__':
     args = sys.argv[1:]
