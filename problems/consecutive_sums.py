@@ -39,6 +39,21 @@ node.next = Node(5)
 node.next.next = Node(-3)
 node.next.next.next = Node(-3)
 node.next.next.next.next = Node(1)
+node.next.next.next.next.next = Node(5)
+node.next.next.next.next.next.next = Node(4)
+node.next.next.next.next.next.next.next = Node(-4)
+node = removeConsecutiveSumTo0(node)
+
+print("\nStarting")
+while node:
+    print(node.value)
+    node = node.next
+
+node = Node(10)
+node.next = Node(5)
+node.next.next = Node(-3)
+node.next.next.next = Node(-3)
+node.next.next.next.next = Node(1)
 node.next.next.next.next.next = Node(4)
 node.next.next.next.next.next.next = Node(-4)
 node = removeConsecutiveSumTo0(node)
