@@ -6,6 +6,9 @@
 # For this problem, often you will be asked to design your own serialization format.
 # However, for simplicity, let's use the pre-order traversal of the tree. Here's your starting point:
 
+
+# Reference:
+# https://www.geeksforgeeks.org/serialize-deserialize-binary-tree/
 class Node:
     def __init__(self, val, left=None, right=None):
         self.val = val
