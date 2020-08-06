@@ -34,8 +34,22 @@ def serialize(root):
     ret += "#"
     return ret
 
-# def deserialize(data):
-    # Fill this in.
+def deserialize(data):
+    stack = [Node(data[0])]
+    root = stack[0]
+    for x in data[1:]:
+        if x != "#":
+            node = Node(x)
+            if stack:
+                parent = stack[-1]
+                if parent.left:
+                    parent.right = node
+                else:
+                    parent.left = node
+            stack.append(node)
+        else:
+            stack.pop()
+    return root
 
 #     1
 #    / \
@@ -51,4 +65,4 @@ tree.right.right = Node(7)
 
 print(serialize(tree))
 # 1 3 2 # # 5 # # 4 # 7 # #
-# print deserialize('1 3 2 # # 5 # # 4 # 7 # #')
+print(deserialize(serialize(tree)))
