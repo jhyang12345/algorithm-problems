@@ -1,3 +1,7 @@
+# Given a list of integers, return the bounds of the minimum range that must be sorted so that the whole list would be sorted.
+#
+# https://leetcode.com/problems/shortest-unsorted-continuous-subarray/submissions/
+
 def findRange(nums):
     s = sorted(nums)
     start = len(s)
