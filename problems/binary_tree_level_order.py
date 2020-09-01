@@ -23,7 +23,7 @@ def print_level_order(root):
             queue.append(cur.left)
         if cur.right:
             queue.append(cur.right)
-            
+    
 
 root = Node(1, Node(2), Node(3, Node(4), Node(5)))
 print_level_order(root)
