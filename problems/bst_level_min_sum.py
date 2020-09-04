@@ -1,6 +1,6 @@
-You are given the root of a binary tree. Find the level for the binary tree with the minimum sum, and return that value.
-
-For instance, in the example below, the sums of the trees are 10, 2 + 8 = 10, and 4 + 1 + 2 = 7. So, the answer here should be 7.
+# You are given the root of a binary tree. Find the level for the binary tree with the minimum sum, and return that value.
+#
+# For instance, in the example below, the sums of the trees are 10, 2 + 8 = 10, and 4 + 1 + 2 = 7. So, the answer here should be 7.
 
 class Node:
   def __init__(self, value, left=None, right=None):
@@ -11,7 +11,25 @@ class Node:
 def minimum_level_sum(root):
     level = 1
     queue = [(root, level)]
-    
+    dict = {}
+    while queue:
+        cur, level = queue.pop(0)
+        if level not in dict:
+            dict[level] = cur.val
+        else:
+            dict[level] += cur.val
+        if cur.left:
+            queue.append([cur.left, level + 1])
+        if cur.right:
+            queue.append([cur.right, level + 1])
+    ret = None
+    for x in dict:
+        if ret == None:
+            ret = dict[x]
+        else:
+            ret = min(dict[x], ret)
+    return ret
+
 
 #     10
 #    /  \
