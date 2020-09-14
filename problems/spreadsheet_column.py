@@ -19,6 +19,7 @@
 #
 # Input: 704
 # Output: AAB
+# https://leetcode.com/problems/excel-sheet-column-title/discuss/703987/Python-3-simple-solution
 def convertToTitle(n):
     s = ""
     for i in range(65,91):
