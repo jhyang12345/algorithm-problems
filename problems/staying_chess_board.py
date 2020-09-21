@@ -28,7 +28,9 @@ def is_knight_on_board(x, y, k):
     cache = [[0 for _ in range(8)] for __ in range(8)]
     cur = [[0 for _ in range(8)] for __ in range(8)]
     cache[x][y] = 1
+
     for i in range(k):
+
         for a in range(8):
             for b in range(8):
                 moves = knight_moves()
@@ -36,7 +38,9 @@ def is_knight_on_board(x, y, k):
                     if in_bounds([a, b], move):
                         cur[a + move[0]][b + move[1]] += cache[a][b]
                     else:
-                        off += 1
+                        if cache[a][b]:
+                            off += 1
+
         cache = cur
         cur = [[0 for _ in range(8)] for __ in range(8)]
 
@@ -45,7 +49,6 @@ def is_knight_on_board(x, y, k):
     for i in range(8):
         for j in range(8):
             total += cache[i][j]
-    print(total, off)
     return total / (total + off)
 
 
