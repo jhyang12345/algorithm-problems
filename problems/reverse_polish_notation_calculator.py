@@ -12,6 +12,7 @@
 
 def reverse_polish_notation(expr):
     ret = 0
+    stack = []
     return ret
 
 # 1 - (2 + 3) * 2
