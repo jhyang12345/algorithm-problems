@@ -1,0 +1,22 @@
+# Create a class that initializes with a list of numbers and has one method called sum.
+# sum should take in two parameters, start_idx and end_idx and return the sum of the
+# list from start_idx (inclusive) to end_idx` (exclusive).
+#
+# You should optimize for the sum method.
+#
+# Here's the class:
+
+class ListFastSum:
+    def __init__(self, nums):
+        self.nums = nums
+        n = len(nums)
+        cache = [0] * (n + 1)
+        for i in range(n):
+            cache[i + 1] = nums[i] + cache[i]
+        self.cache = cache
+
+    def sum(self, start_idx, end_idx):
+        return self.cache[end_idx] - self.cache[start_idx]
+
+print(ListFastSum([1, 2, 3, 4, 5, 6, 7]).sum(2, 5))
+# 12 because 3 + 4 + 5 = 12
