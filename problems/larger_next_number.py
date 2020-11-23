@@ -2,6 +2,8 @@
 # Return the answer as a list of indices. If there are no elements larger than the current element, then use -1 instead.
 #
 # Here's an example and some starter code:
+# https://www.geeksforgeeks.org/next-greater-element/
+
 
 def larger_next_number(nums):
     stack = []
