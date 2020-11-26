@@ -13,25 +13,45 @@ def frac_to_dec(numerator, denominator):
         number = - numerator
     numerator = abs(numerator)
     denominator = abs(denominator)
+    repeat = False
     value = 1
     last = value
     i = 0
     while True:
-        if number * value / last > denominator:
-            if value == 10:
-                ret += '.'
-            ret += str((number * value / last) // denominator)
-            number = number % denominator
+        if number == 0:
+            break
+        if value >= 10 and '.' not in ret:
+            ret += '.'
+        if (number * value) > denominator:
+            ret = ret + str(int((number * value) // denominator))
+            if number == (number * value) % denominator and value == last:
+                repeat = True
+                break
+            number = (number * value) % denominator
             last = value
+            value = 1
         else:
-            ret += '0'
+            ret = ret + '0'
         value *= 10
-        print(value, ret)
 
         i += 1
         if i > 10:
             break
-    return ret
+    if not repeat:
+        return ret
+    digits = len(str(last)) - 1
+    expr = str(int((number * last) // denominator))
+    while len(expr) < digits:
+        expr = '0' + expr
+
+    i = len(ret) - len(expr)
+    step = len(expr)
+    while i >= 0:
+        if ret[i:i + step] != expr:
+            i = i + step
+            break
+        i -= step
+    return ret[:i] + f"({expr})"
 
 
 print(frac_to_dec(-3, 2))
@@ -42,3 +62,5 @@ print(frac_to_dec(4, 3))
 
 print(frac_to_dec(1, 6))
 # 0.1(6)
+
+print(frac_to_dec(1, 11))
