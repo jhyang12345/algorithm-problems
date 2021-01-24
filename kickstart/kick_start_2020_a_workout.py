@@ -18,23 +18,36 @@
 # of minutes she will exercise in the i-th session.
 #
 
-import sys
-import heapq
+import sys, math
 
 def get_max_difficulty(nums, k):
     diff_q = []
-    heapq.heapify(diff_q)
+    max_diff = 0
     for i in range(len(nums) - 1):
         diff = nums[i + 1] - nums[i]
-        heapq.heappush(diff_q, -diff)
-    for i in range(k):
-        val = - heapq.heappop(diff_q)
-        half = val // 2
-        other_half = val - half
-        heapq.heappush(diff_q, - half)
-        heapq.heappush(diff_q, - other_half)
+        diff_q.append(diff)
+        max_diff = max(diff, max_diff)
+    min_difficulty = 1
+    lo = 1
+    hi = max_diff + 1
+    mid = (lo + hi) // 2
+    while mid + 1 < hi:
+        count = 0
+        for diff in diff_q:
+            count += (math.ceil(diff / mid) - 1)
+        if count > k:
+            lo = mid
+        else:
+            hi = mid
+            min_difficulty = mid
+        mid = (lo + hi) // 2
+    count = 0
+    for diff in diff_q:
+        count += (math.ceil(diff / mid) - 1)
+    if count <= k:
+        min_difficulty = mid
 
-    return max(1, - heapq.heappop(diff_q))
+    return min_difficulty
 
 if __name__ == '__main__':
     n = int(sys.stdin.readline())
