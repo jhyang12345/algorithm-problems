@@ -15,6 +15,21 @@
 
 import sys
 
+class Trie:
+    def __init__(self, char):
+        self.char = char
+        self.count = 1
+        self.children = {}
+
+    def add(self, char):
+        node = None
+        if char in self.children:
+            node = self.children[char]
+            node.count += 1
+        else:
+            node = Trie(char)
+        return node
+
 def get_max_sum_of_scores(words, k):
     words.sort()
     ret = 0
