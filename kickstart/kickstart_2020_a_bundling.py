@@ -18,6 +18,7 @@ import sys
 class Trie:
     def __init__(self, char):
         self.char = char
+        self.length = 0
         self.count = 1
         self.children = {}
 
@@ -28,30 +29,37 @@ class Trie:
             node.count += 1
         else:
             node = Trie(char)
+            self.children[char] = node
+        node.length = self.length + 1
         return node
 
-def get_max_sum_of_scores(words, k):
-    words.sort()
-    ret = 0
-    for i in range(0, len(words), k):
-        group = words[i:i + k]
-        suffix = group[0]
-        end = len(suffix)
-        for word in group[1:]:
-            n = len(word)
-            m = len(suffix)
-            if n < m:
-                suffix = suffix[:n]
-            end = len(suffix)
-            i = 0
-            while i < end:
-                if suffix[i] != word[i]:
-                    break
-                i += 1
-            suffix = suffix[:i]
-        ret += len(suffix)
-    return ret
+    def __str__(self):
+        return f"{self.count} {self.children.keys()}"
 
+def dfs(root, k):
+    s = 0
+    value = 0
+    for key in root.children:
+        node, count, v = dfs(root.children[key], k)
+        s += count
+        value += v
+    count = 0
+    root.count -= s
+
+    if root.count >= k:
+        remainder = root.count % k
+        count = root.count - remainder
+        value += root.length
+    return root, count + s, value
+
+def get_max_sum_of_scores(words, k):
+    root = Trie(None)
+    for word in words:
+        next = root
+        for ch in word:
+            next = next.add(ch)
+    _, _, value = dfs(root, k)
+    return value
 
 if __name__ == '__main__':
     t = int(sys.stdin.readline())
