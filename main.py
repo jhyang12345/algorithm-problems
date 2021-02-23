@@ -2,7 +2,7 @@ import sys
 import os
 import subprocess
 
-problem_directories = ['problems', 'kickstart']
+problem_directories = ['problems', 'kickstart', 'google_prep']
 input_directory = 'inputs'
 
 def get_problem(title):
