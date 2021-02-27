@@ -9,6 +9,7 @@ def largest_rectangle_area(arr):
     left = mid - 1
     right = mid
     height = min(arr[left], arr[right])
+    ret = max(ret, (right - left + 1) * height)
     while left >= 0 and right < n:
         if left == 0 and right == n - 1:
             break
@@ -24,6 +25,7 @@ def largest_rectangle_area(arr):
         else:
             left -= 1
             height = min(height, arr[left])
+        print(left, right, height)
         ret = max(ret, (right - left + 1) * height)
     return ret
 
