@@ -10,9 +10,24 @@ def jump_game(arr):
                 return True
     return cache[n - 1]
 
+# https://leetcode.com/problems/jump-game/submissions/
+def jump_game_2(arr):
+    n = len(arr)
+    cur_max = 0
+    for i, x in enumerate(arr):
+        if cur_max < i:
+            return False
+        cur_max = max(i + x, cur_max)
+        if n - 1 <= cur_max:
+            return True
+
+
 
 nums = [2,3,1,1,4]
-print(jump_game(nums))
+print(jump_game_2(nums))
 
 nums = [0, 2, 3]
-print(jump_game(nums))
+print(jump_game_2(nums))
+
+nums = [3,0,8,2,0,0,1]
+print(jump_game_2(nums))
