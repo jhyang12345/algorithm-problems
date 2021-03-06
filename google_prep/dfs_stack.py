@@ -11,6 +11,7 @@ def dfs(graph, cur):
             if node not in visited:
                 stack.append(node)
 
+# https://www.geeksforgeeks.org/iterative-depth-first-traversal/
 
 graph = {
     1: [2, 3],
