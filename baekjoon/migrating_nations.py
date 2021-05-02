@@ -20,17 +20,62 @@ from collections import defaultdict
 
 n, l, r = list(map(int, sys.stdin.readline().split()))
 
-def bfs_all(graph):
+def bfs_all(graph, l, r):
     n = len(graph)
     m = len(graph[0])
-    visited = {}
+    visited = defaultdict(int)
+    change = 0
+    groups = []
     for i in range(n):
         for j in range(m):
-            if visited[(i, j)]
-            queue = [cur]
+            cur = (i, j)
+            if not visited[cur]:
+                cur_group = []
+                cur_sum = 0
+                queue = [cur]
+                # print("NEW")
+                while queue:
+                    x, y = queue.pop(0)
+                    if visited[(x, y)]:
+                        continue
+                    visited[(x, y)] = 1
+                    cur_group.append((x, y))
+                    x_s = []
+                    y_s = []
+                    if x > 0:
+                        x_s.append(-1)
+                    if x < (n - 1):
+                        x_s.append(1)
+                    if y > 0:
+                        y_s.append(-1)
+                    if y < (m - 1):
+                        y_s.append(1)
+                    for a in x_s:
+                        if not visited[(x + a, y)] and l <= abs(graph[x][y] - graph[x + a][y]) <= r:
+                            queue.append((x + a, y))
+                    for b in y_s:
+                        if not visited[(x, y + b)] and l <= abs(graph[x][y] - graph[x][y + b]) <= r:
+                            queue.append((x, y + b))
+                groups.append(cur_group)
+    for group in groups:
+        cur_sum = 0
+        for x, y in group:
+            cur_sum += graph[x][y]
+        indi = cur_sum // len(group)
+        for x, y in group:
+            if graph[x][y] != indi:
+                change += 1
+            graph[x][y] = indi
+    if not change:
+        return False
+    return True
 
 
 graph = []
 for _ in range(n):
     arr = list(map(int, sys.stdin.readline().split()))
     graph.append(arr)
+count = 0
+while bfs_all(graph, l, r):
+    count += 1
+print(count)
